@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import accommodationList from '../../datas/accommodationList';
 import styled from "styled-components";
 import Collapse from "../../components/Collapse/collapse";
 import HostName from "../../components/HostName/hostname";
 import RatingStars from "../../components/RatingStars/ratingStars";
 import Slider from "../../components/Slider/slider";
+import { useEffect } from "react";
 
 const TitleAccommodation = styled.h1`
     color: #FF6060;
@@ -88,44 +89,57 @@ const Location = styled.p`
 const Accommodation = () =>  {
     const accomodationId = useParams().id;    
     const accommodation = accommodationList.find((acco) => acco.id === accomodationId);
-    return (
-      <>
-      <Slider allSlides={accommodation.pictures}></Slider>
-      <FirstPart>
-        <FirstLine>
-            <TitleAccommodation>{accommodation.title}</TitleAccommodation>
-            <Location>{accommodation.location}</Location>
-            <div>
-                {accommodation.tags.map(tag => (
-                <Tags>
-                    {tag}
-                </Tags>
-                ))
-                }
-            </div>
-        </FirstLine>
-        <SecondLine>
-            <div>
-                <RatingStars rating={accommodation.rating} />
-            </div>
-            <Host>
-                <HostName name={accommodation.host.name}></HostName>
-                <img src={accommodation.host.picture} alt="hpst_picture"/>
-            </Host>
-        </SecondLine>     
-      </FirstPart>
-       
 
-        <AllCollapses>
-            <div>
-                <Collapse title="Description" description={accommodation.description}></Collapse>
-            </div>
-            <div>
-                <Collapse title="Equipements" description={accommodation.equipments.map(equipment => equipment + '<br/>').join('')}></Collapse>
-            </div>
-        </AllCollapses>
-      </>
-    );
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(!accommodation) {
+            navigate('/error');
+        }
+    }, [accommodation, navigate]);
+
+    try{
+        return (
+            <>
+            <Slider allSlides={accommodation.pictures}></Slider>
+            <FirstPart>
+              <FirstLine>
+                  <TitleAccommodation>{accommodation.title}</TitleAccommodation>
+                  <Location>{accommodation.location}</Location>
+                  <div>
+                      {accommodation.tags.map(tag => (
+                      <Tags>
+                          {tag}
+                      </Tags>
+                      ))
+                      }
+                  </div>
+              </FirstLine>
+              <SecondLine>
+                  <div>
+                      <RatingStars rating={accommodation.rating} />
+                  </div>
+                  <Host>
+                      <HostName name={accommodation.host.name}></HostName>
+                      <img src={accommodation.host.picture} alt="hpst_picture"/>
+                  </Host>
+              </SecondLine>     
+            </FirstPart>
+             
+      
+              <AllCollapses>
+                  <div>
+                      <Collapse title="Description" description={accommodation.description}></Collapse>
+                  </div>
+                  <div>
+                      <Collapse title="Equipements" description={accommodation.equipments.map(equipment => equipment + '<br/>').join('')}></Collapse>
+                  </div>
+              </AllCollapses>
+            </>
+          );
+    }
+    catch(e){
+        console.log("Erreur");
+    }
   };
   
   export default Accommodation;
