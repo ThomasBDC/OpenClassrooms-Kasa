@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import styled from 'styled-components';
-import Home from '../../pages/Home/home';
 
 const StyledHeader = styled.header`
     display:flex;

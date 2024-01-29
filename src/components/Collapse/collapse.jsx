@@ -22,7 +22,7 @@ const ContentCollapse = styled.div`
     background-color:white;
     color:black;
     overflow:hidden;
-    transition: 1s;
+    transition: transform 1s;
     transform: translateY(${(props) => props.isOpen ? "0" : "-100%"});
     max-height: ${(props) => props.isOpen ? "100%" : "0"};
     margin-bottom: ${(props) => props.isOpen ? "15px" : "0px"};
@@ -60,7 +60,7 @@ const Collapse = ({title, description}) => {
                 <CollapseArrow src={arrow} onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}/>
             </TitleCollapse>
             <ContentCollapse isOpen={isOpen}>
-                {description}
+                <div dangerouslySetInnerHTML={{__html: description}}></div>
             </ContentCollapse>
         </CollaspeContainer>
     )
