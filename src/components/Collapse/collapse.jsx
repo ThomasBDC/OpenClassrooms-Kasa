@@ -29,7 +29,7 @@ const ContentCollapse = styled.div`
     padding: 15px 20px;
     border-radius:5px;
     background-color:#F6F6F6;
-
+    box-sizing: border-box;
     > div{
         transition: 1s;
         transform: translateY(${(props) => props.isOpen ? "0" : "-100%"});

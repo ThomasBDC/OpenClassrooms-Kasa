@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Collapse from "../../components/Collapse/collapse";
 import HostName from "../../components/HostName/hostname";
 import RatingStars from "../../components/RatingStars/ratingStars";
+import Slider from "../../components/Slider/slider";
 
 const TitleAccommodation = styled.h1`
     color: #FF6060;
@@ -89,6 +90,7 @@ const Accommodation = () =>  {
     const accommodation = accommodationList.find((acco) => acco.id === accomodationId);
     return (
       <>
+      <Slider allSlides={accommodation.pictures}></Slider>
       <FirstPart>
         <FirstLine>
             <TitleAccommodation>{accommodation.title}</TitleAccommodation>
