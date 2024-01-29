@@ -4,7 +4,8 @@ import { useState } from 'react';
 
 const TitleCollapse = styled.div`
     position:relative;
-    width:100%;
+    top: 0;
+    z-index: 1;
     padding:15px 20px;
     background-color:#FF6060;
     color:white;
@@ -14,28 +15,31 @@ const TitleCollapse = styled.div`
     align-items:center;
     font-size:24px;
     border-radius:5px;
-    z-index:2;
 `;
 
 const ContentCollapse = styled.div`
     position:relative;
-    background-color:white;
     color:black;
     overflow:hidden;
-    transition: transform 1s;
+    transition: 0.5s;
     transform: translateY(${(props) => props.isOpen ? "0" : "-100%"});
-    max-height: ${(props) => props.isOpen ? "100%" : "0"};
-    margin-bottom: ${(props) => props.isOpen ? "15px" : "0px"};
+    max-height: ${(props) => props.isOpen ? "99em" : "0px"};
     z-index:-1;
     width:100%;
     padding: 15px 20px;
     border-radius:5px;
     background-color:#F6F6F6;
-    overflow:hidden;
+
+    > div{
+        transition: 1s;
+        transform: translateY(${(props) => props.isOpen ? "0" : "-100%"});
+        max-height: ${(props) => props.isOpen ? "99em" : "0px"};
+    }
 `;
 
 const CollaspeContainer = styled.div`
-    position:relative;
+    overflow:hidden;
+    margin-bottom: ${(props) => props.isOpen ? "15px" : "0px"};
 `;
 
 
@@ -54,7 +58,7 @@ const Collapse = ({title, description}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <CollaspeContainer>
+        <CollaspeContainer isOpen={isOpen}>
             <TitleCollapse>
                 {title}
                 <CollapseArrow src={arrow} onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}/>
